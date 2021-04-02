@@ -34,5 +34,5 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     @ToString.Exclude
     @Setter(AccessLevel.NONE)
-    private List<User> users = new LinkedList<>();
+    private List<Utilisateur> users = new LinkedList<>();
 }

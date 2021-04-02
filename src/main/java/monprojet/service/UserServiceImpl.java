@@ -1,6 +1,6 @@
 package monprojet.service;
 
-import monprojet.entity.User;
+import monprojet.entity.Utilisateur;
 import monprojet.dao.RoleRepository;
 import monprojet.dao.UserRepository;
 import monprojet.entity.Role;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(User user) {
+    public void save(Utilisateur user) {
         // Par défaut on attribue le rôle 'normal' aux nouveaux utilisateurs
         //Le rôle 'normal' doit exister cf. data.sql
         Role normal = roleRepository.findByName("ROLE_USER").orElseThrow();
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUserName(String username) {
+    public Utilisateur findByUserName(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -53,10 +53,10 @@ public class UserServiceImpl implements UserService {
     public void createAdminUser() {
         //Le rôle 'admin' doit exister cf. data.sql
         Role admin = roleRepository.findByName("ROLE_ADMIN").orElseThrow();
-        User adminUser = userRepository.findByUsername(adminLogin);
+        Utilisateur adminUser = userRepository.findByUsername(adminLogin);
         if (null == adminUser) { // On ne le crée pas si il existe déjà
             log.info("On crée l'administrateur login: {}, password: {}", adminLogin, adminPassword);
-            User firstAdmin = new User(adminLogin, adminPassword, adminEmail);
+            Utilisateur firstAdmin = new Utilisateur(adminLogin, adminPassword, adminEmail);
             // On crypte le mot de passe avant de l'enregistrer
             firstAdmin.setPassword(bCryptPasswordEncoder.encode(firstAdmin.getPassword()));
             firstAdmin.getRoles().add(admin);

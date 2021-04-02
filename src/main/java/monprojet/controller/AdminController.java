@@ -1,6 +1,6 @@
 package monprojet.controller;
 
-import monprojet.entity.User;
+import monprojet.entity.Utilisateur;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Secured("ROLE_ADMIN") // Réservé aux utilisateurs qui ont le rôle 'ROLE_ADMIN'
 public class AdminController {
 	@GetMapping(path = "pageAdmin")
-	public String montreLaPageAdmin(@AuthenticationPrincipal User user,  // Les infos de l'utilisateur connecté
-                    Model model) {
+	public String montreLaPageAdmin(@AuthenticationPrincipal Utilisateur user,  // Les infos de l'utilisateur connecté
+                                    Model model) {
                 log.info("L'administrateur id: {}, email: {} accède à sa page", user.getId(), user.getEmail());
 		return "pageAdmin"; // On affiche la vue 'pageAdmin.html'
 	}    

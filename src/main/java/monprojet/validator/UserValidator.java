@@ -1,6 +1,6 @@
 package monprojet.validator;
 
-import monprojet.entity.User;
+import monprojet.entity.Utilisateur;
 import monprojet.service.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -17,12 +17,12 @@ public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return Utilisateur.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        Utilisateur user = (Utilisateur) o;
 
 
         if (userService.findByUserName(user.getUsername()) != null) {

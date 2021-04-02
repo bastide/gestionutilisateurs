@@ -8,7 +8,9 @@ L'application est [déployée sur heroku](https://gestionutilisateurs.herokuapp.
 
 ## Structure
 
-Les utilisateurs de l'application sont représentés par l'entité `User`.
+Les utilisateurs de l'application sont représentés par l'entité `Utilisateur`. 
+(note : le mot `User` est réservé par Postgresql et ne peut pas être utilisé comme nom de table).
+
 Les utilisateurs peuvent avoir un ou plusieurs rôles (entité `Role`). Deux rôles sont prédéfinis, 
 `ROLE_USER` et `ROLE_ADMIN` (voir le fichier `data.sql` qui crée ces rôles dans la base de données).
 

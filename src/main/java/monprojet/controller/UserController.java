@@ -1,6 +1,6 @@
 package monprojet.controller;
 
-import monprojet.entity.User;
+import monprojet.entity.Utilisateur;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 	@GetMapping(path = "pageUser")
 	public String montrePageUtilisateur(
-		@AuthenticationPrincipal User user,  // Les infos de l'utilisateur connecté
-		Model model) {
+        @AuthenticationPrincipal Utilisateur user,  // Les infos de l'utilisateur connecté
+        Model model) {
 		log.info("L'utilisateur id: {}, email: {} accède à sa page", user.getId(), user.getEmail());
 		return "pageUser"; // On affiche la vue 'pageUser.html'
 	}    

@@ -29,7 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 // Lombok
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
-public class User  implements UserDetails {
+public class Utilisateur implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

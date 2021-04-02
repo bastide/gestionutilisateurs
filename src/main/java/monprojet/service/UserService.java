@@ -1,11 +1,11 @@
 package monprojet.service;
 
-import monprojet.entity.User;
+import monprojet.entity.Utilisateur;
 
 public interface UserService {
     void createAdminUser();
     
-    void save(User user);
+    void save(Utilisateur user);
 
-    User findByUserName(String username);
+    Utilisateur findByUserName(String username);
 }
