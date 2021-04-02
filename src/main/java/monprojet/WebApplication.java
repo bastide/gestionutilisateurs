@@ -28,7 +28,7 @@ public class WebApplication {
     @PostConstruct
     // Quand on lance l'application, on crée un administrateur (cf. application.properties)
     private void createAdminUser() {
-        userService.createAdminUser();
+        userService.initializeRolesAndAdmin();
     }
     
 }

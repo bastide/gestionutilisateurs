@@ -3,7 +3,7 @@ package monprojet.service;
 import monprojet.entity.Utilisateur;
 
 public interface UserService {
-    void createAdminUser();
+    void initializeRolesAndAdmin();
     
     void save(Utilisateur user);
 

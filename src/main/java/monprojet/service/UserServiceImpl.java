@@ -1,15 +1,13 @@
 package monprojet.service;
 
-import monprojet.entity.Utilisateur;
+import lombok.extern.slf4j.Slf4j;
 import monprojet.dao.RoleRepository;
 import monprojet.dao.UserRepository;
 import monprojet.entity.Role;
-import org.springframework.beans.factory.annotation.Autowired;
+import monprojet.entity.Utilisateur;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 @Service
 @Slf4j
@@ -18,19 +16,22 @@ public class UserServiceImpl implements UserService {
     // Login et Password de l'administrateur son définis dans 'application.propertie'
     @Value("${admin.login}")
     private String adminLogin;
-    
+
     @Value("${admin.password}")
     private String adminPassword;
 
     @Value("${admin.email}")
     private String adminEmail;
-        
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     public void save(Utilisateur user) {
@@ -40,7 +41,6 @@ public class UserServiceImpl implements UserService {
         // On crypte le mot de passe avant de l'enregistrer
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.getRoles().add(normal);
-        //user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
 
@@ -50,16 +50,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createAdminUser() {
-        //Le rôle 'admin' doit exister cf. data.sql
-        Role admin = roleRepository.findByName("ROLE_ADMIN").orElseThrow();
-        Utilisateur adminUser = userRepository.findByUsername(adminLogin);
-        if (null == adminUser) { // On ne le crée pas si il existe déjà
-            log.info("On crée l'administrateur login: {}, password: {}", adminLogin, adminPassword);
+    public void initializeRolesAndAdmin() {
+       if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
+            log.info("Création des deux rôles et de l'administrateur");
+            Role roleAdmin = new Role("ROLE_ADMIN");
+            Role roleUser = new Role("ROLE_USER");
+            roleRepository.save(roleAdmin);
+            roleRepository.save(roleUser);
             Utilisateur firstAdmin = new Utilisateur(adminLogin, adminPassword, adminEmail);
             // On crypte le mot de passe avant de l'enregistrer
             firstAdmin.setPassword(bCryptPasswordEncoder.encode(firstAdmin.getPassword()));
-            firstAdmin.getRoles().add(admin);
+            firstAdmin.getRoles().add(roleAdmin);
             userRepository.save(firstAdmin);
         }
     }
