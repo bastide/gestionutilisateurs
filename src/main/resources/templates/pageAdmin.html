@@ -13,6 +13,9 @@
         <div class="container">
             <h2 class="form-heading">Page Administrateur</h2>
             <div>Votre email est : <span sec:authentication="principal.email">ab.cd@xyz.com</span></div>
+            <div>Vous avez également accès à cette
+                <a href="pageUser.html" th:href="@{/user/pageUser}">page accessible aux utilisateurs</a>
+            </div>
             <a href="welcome.html" th:href="@{/}">Back to Home Page</a>
         </div>
         <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>

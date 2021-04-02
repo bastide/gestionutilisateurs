@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequestMapping(path = "/user")
-@Secured("ROLE_USER") // Réservé aux utilisateurs qui ont le rôle 'ROLE_USER'
+@Secured({"ROLE_ADMIN", "ROLE_USER"}) // Réservé aux utilisateurs qui ont le rôle 'ROLE_USER' ou 'ROLE_ADMIN'
 public class UserController {
 	@GetMapping(path = "pageUser")
 	public String montrePageUtilisateur(
