@@ -28,11 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER").and()
-                .formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+        // Configuration de la page de login
+        http.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+        // La console h2 est réservée à l'administrateur
         http.authorizeRequests().antMatchers("/h2-console/**").hasRole("ADMIN").and().csrf()
                 .ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin();
     }

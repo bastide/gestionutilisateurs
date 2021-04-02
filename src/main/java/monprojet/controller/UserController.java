@@ -3,6 +3,7 @@ package monprojet.controller;
 import monprojet.entity.User;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequestMapping(path = "/user")
-public class AllUsersController {
+@Secured("ROLE_USER") // Réservé aux utilisateurs qui ont le rôle 'ROLE_USER'
+public class UserController {
 	@GetMapping(path = "pageUser")
 	public String montrePageUtilisateur(
 		@AuthenticationPrincipal User user,  // Les infos de l'utilisateur connecté
