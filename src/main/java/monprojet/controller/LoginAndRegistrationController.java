@@ -1,0 +1,65 @@
+package monprojet.controller;
+
+import monprojet.entity.User;
+import monprojet.service.SecurityService;
+import monprojet.service.UserService;
+import monprojet.validator.UserValidator;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+public class LoginAndRegistrationController {
+    private final UserService userService;
+
+    private final SecurityService securityService;
+
+    private final UserValidator userValidator;
+
+    public LoginAndRegistrationController(UserService userService, SecurityService securityService, UserValidator userValidator) {
+        this.userService = userService;
+        this.securityService = securityService;
+        this.userValidator = userValidator;
+    }
+
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+
+        return "registration";
+    }
+
+    @PostMapping("/registration")
+    public String registration(@Valid @ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+        userValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        userService.save(userForm);
+
+        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:/welcome";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("error", "Nom d'utilisateur ou mot de passe incorrect.");
+
+        if (logout != null)
+            model.addAttribute("message", "Vous avez été déconnecté.");
+
+        return "login";
+    }
+
+    @GetMapping({"/", "/welcome"})
+    public String welcome(Model model) {
+        return "welcome";
+    }
+}

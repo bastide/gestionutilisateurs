@@ -1,0 +1,29 @@
+package monprojet;
+
+import lombok.extern.slf4j.Slf4j;
+import monprojet.service.UserService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.annotation.PostConstruct;
+
+@SpringBootApplication
+@Slf4j
+public class WebApplication {
+    final
+    UserService userService;
+
+    public WebApplication(UserService userService) {
+        this.userService = userService;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(WebApplication.class, args);
+    }
+    
+    @PostConstruct
+    private void createAdminUser() {
+        userService.createAdminUser();
+    }
+    
+}
