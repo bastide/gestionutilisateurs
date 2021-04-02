@@ -13,8 +13,8 @@
         <div class="container">
             <h2 class="form-heading">Page Utilisateur</h2>
             <div>Votre email est : <span sec:authentication="principal.email">ab.cd@xyz.com</span></div>
-            <div>Vous n'avez pas accès aux
-                <a href="pageAdmin.html" th:href="@{/admin/pageAdmin}">pages réservées aux administrateur</a>
+            <div>Cette page est
+                <a href="pageAdmin.html" th:href="@{/admin/pageAdmin}">réservée aux administrateurs</a>
             </div>
             <a href="welcome.html" th:href="@{/}">Back to Home Page</a>
         </div>

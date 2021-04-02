@@ -1,32 +1,27 @@
+## Introduction
 
-## Synopsis
+Un exemple de gestion des utilisateurs qui utilise
+ [Spring Security](https://spring.io/projects/spring-security)
+pour protéger certaines parties de votre application.
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+L'application est [déployée sur heroku](https://gestionutilisateurs.herokuapp.com/).
 
-## Code Example
+## Structure
 
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+Les utilisateurs de l'application sont représentés par l'entité `User`.
+Les utilisateurs peuvent avoir un ou plusieurs rôles (entité `Role`). Deux rôles sont prédéfinis, 
+`ROLE_USER` et `ROLE_ADMIN` (voir le fichier `data.sql` qui crée ces rôles dans la base de données).
 
-## Motivation
+Un utilisateur avec le rôle `ROLE_ADMIN` est créé automatiquement au démarrage de l'application. 
+Ses login/password sont définis dans le fichier `application.properties`
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+Le template `welcome.html` (page d'accueil de l'application) montre
+comment des parties d'une page peuvent être réservées aux utilisateurs connectés,
+ou aux utilisateurs qui possèdent un rôle spécifique.
 
-## Installation
+Les contrôleurs `AdminController.java` et `UserController.java` montrent comment
+l'accès à un contrôleur particulier peut être réservé aux utilisateurs possédant un rôle spécifique.
 
-Provide code examples and explanations of how to get the project.
-
-## API Reference
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-## Tests
-
-Describe and show how to run the tests with code examples.
-
-## Contributors
-
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
-
-## License
-
-A short snippet describing the license (MIT, Apache, etc.)
+## Crédits
+Cette application est inspirée de [HelloKoding](https://hellokoding.com/registration-and-login-example-with-spring-security-spring-boot-spring-data-jpa-hsql-jsp/),
+simplifiée, et ré-écrite pour utiliser H2 et thymeleaf plutôt que MySQL et JSP.
