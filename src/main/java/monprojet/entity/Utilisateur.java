@@ -34,7 +34,7 @@ public class Utilisateur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    private Long id;
+    private Integer id;
 
     @NonNull // Lombok
     // Contraintes de taille

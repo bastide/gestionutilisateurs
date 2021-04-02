@@ -25,7 +25,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    private Long id;
+    private Integer id;
 
     @NonNull
     @Column(unique=true)
