@@ -12,7 +12,7 @@ Les utilisateurs de l'application sont représentés par l'entité `Utilisateur`
 (note : le mot `User` est réservé par Postgresql et ne peut pas être utilisé comme nom de table).
 
 Les utilisateurs peuvent avoir un ou plusieurs rôles (entité `Role`). Deux rôles sont prédéfinis, 
-`ROLE_USER` et `ROLE_ADMIN`. Ces deux rôles, ainsi qu'un utilisateur avec le rôle `ROLE_ADMIN`, sont créé automatiquement au démarrage de l'application. 
+`ROLE_USER` et `ROLE_ADMIN`. Ces deux rôles, ainsi qu'un utilisateur avec le rôle `ROLE_ADMIN`, sont créés automatiquement au démarrage de l'application. 
 Les login/password de cet administrateur sont définis dans le fichier `application.properties`
 
 Le template `welcome.html` (page d'accueil de l'application) montre
