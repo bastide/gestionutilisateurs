@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    // Login et Password de l'administrateur son définis dans 'application.propertie'
+    // Login et Password de l'administrateur son définis dans 'application.properties'
     @Value("${admin.login}")
     private String adminLogin;
     @Value("${admin.password}")
@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(Utilisateur user) {
-        // Par défaut on attribue le rôle 'normal' aux nouveaux utilisateurs
-        //Le rôle 'normal' doit exister cf. data.sql
+        // Par défaut on attribue le rôle 'ROLE_USER' aux nouveaux utilisateurs
+        // Ce rôle est créé automatiquement au lancement de l'application
         Role normal = roleRepository.findByName("ROLE_USER").orElseThrow();
         // On crypte le mot de passe avant de l'enregistrer
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
