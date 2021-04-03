@@ -13,19 +13,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    // Login et Password de l'administrateur son définis dans 'application.propertie'
-    @Value("${admin.login}")
-    private String adminLogin;
-
-    @Value("${admin.password}")
-    private String adminPassword;
-
-    @Value("${admin.email}")
-    private String adminEmail;
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    // Login et Password de l'administrateur son définis dans 'application.propertie'
+    @Value("${admin.login}")
+    private String adminLogin;
+    @Value("${admin.password}")
+    private String adminPassword;
+    @Value("${admin.email}")
+    private String adminEmail;
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
@@ -51,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void initializeRolesAndAdmin() {
-       if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
+        if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
             log.info("Création des deux rôles et de l'administrateur");
             Role roleAdmin = new Role("ROLE_ADMIN");
             Role roleUser = new Role("ROLE_USER");

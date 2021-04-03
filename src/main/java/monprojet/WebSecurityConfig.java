@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
         // La console h2 est réservée à l'administrateur
         http.authorizeRequests().antMatchers("/h2-console/**").hasRole("ADMIN").and().csrf()
-                .ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin();
+            .ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin();
     }
 
     @Bean

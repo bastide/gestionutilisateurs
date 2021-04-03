@@ -24,11 +24,11 @@ public class WebApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
     }
-    
+
     @PostConstruct
     // Quand on lance l'application, on crée un administrateur (cf. application.properties)
-    private void createAdminUser() {
+    private void initialize() {
         userService.initializeRolesAndAdmin();
     }
-    
+
 }
